@@ -3,17 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Humans vs AI | Future Predictor</title>
+    <title>Humans vs AI | Global Future Index</title>
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
     <style>
         :root {
-            --bg-color: #080a0f;
-            --card-bg: #11141d;
+            --bg-color: #06070a;
+            --card-bg: #0f1218;
             --neon-blue: #00d2ff;
             --neon-pink: #ff007f;
-            --accent: #7000ff;
+            --accent: #6200ff;
             --text-main: #ffffff;
-            --text-dim: #8b949e;
+            --text-dim: #94a3b8;
         }
 
         body {
@@ -23,151 +23,264 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            justify-content: center;
-            padding: 40px 20px;
+            padding: 50px 20px;
             margin: 0;
             min-height: 100vh;
         }
 
-        /* Title */
         .header { text-align: center; margin-bottom: 40px; }
-        .main-title {
-            font-family: 'Orbitron', sans-serif;
-            font-size: 2.8rem;
-            margin: 0;
-            letter-spacing: 4px;
-        }
-        .humans { color: var(--neon-blue); text-shadow: 0 0 20px rgba(0,210,255,0.3); }
+        .main-title { font-family: 'Orbitron', sans-serif; font-size: 2.5rem; letter-spacing: 5px; margin: 0; }
+        .humans { color: var(--neon-blue); text-shadow: 0 0 15px rgba(0,210,255,0.4); }
         .vs { font-size: 1.2rem; color: var(--text-dim); margin: 0 10px; }
-        .ai { color: var(--neon-pink); text-shadow: 0 0 20px rgba(255,0,127,0.3); }
+        .ai { color: var(--neon-pink); text-shadow: 0 0 15px rgba(255,0,127,0.4); }
 
         .container {
             width: 100%;
-            max-width: 480px;
+            max-width: 500px;
             background: var(--card-bg);
-            padding: 40px;
-            border-radius: 24px;
-            border: 1px solid rgba(255, 255, 255, 0.05);
-            box-shadow: 0 30px 60px rgba(0,0,0,0.8);
+            padding: 35px;
+            border-radius: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.03);
+            box-shadow: 0 25px 50px rgba(0,0,0,0.9);
         }
 
-        label { display: block; margin-bottom: 10px; color: var(--text-dim); font-size: 0.75rem; text-transform: uppercase; letter-spacing: 1.5px; }
+        label { display: block; margin-bottom: 8px; color: var(--text-dim); font-size: 0.7rem; text-transform: uppercase; letter-spacing: 2px; }
 
         select {
             width: 100%;
-            padding: 16px;
-            margin-bottom: 24px;
+            padding: 14px;
+            margin-bottom: 20px;
             background: #000;
-            border: 1px solid #2d333b;
-            border-radius: 12px;
+            border: 1px solid #1e293b;
+            border-radius: 10px;
             color: #fff;
-            font-size: 1rem;
+            font-size: 0.95rem;
             outline: none;
-            appearance: none;
             cursor: pointer;
-            transition: 0.3s;
         }
-        select:focus { border-color: var(--neon-blue); }
 
-        /* Modern Button */
         #calculate-btn {
             width: 100%;
-            padding: 18px;
-            background: linear-gradient(90deg, var(--accent), #4000ff);
+            padding: 16px;
+            background: linear-gradient(90deg, var(--accent), #4800ff);
             border: none;
-            border-radius: 12px;
+            border-radius: 10px;
             color: white;
             font-family: 'Orbitron', sans-serif;
             font-weight: 700;
-            font-size: 0.9rem;
             cursor: pointer;
-            letter-spacing: 2px;
-            transition: all 0.3s ease;
-            box-shadow: 0 10px 20px rgba(112, 0, 255, 0.2);
-            display: none; /* Show only when job is selected */
-        }
-        #calculate-btn:hover { transform: translateY(-3px); box-shadow: 0 15px 30px rgba(112, 0, 255, 0.4); filter: brightness(1.2); }
-
-        /* Result Area */
-        #result-section {
-            margin-top: 40px;
-            padding-top: 30px;
-            border-top: 1px solid #2d333b;
             display: none;
-            animation: fadeInUp 0.8s ease;
+            transition: 0.3s;
         }
 
-        @keyframes fadeInUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+        #calculate-btn:hover { filter: brightness(1.3); transform: scale(1.02); }
+
+        #result-section {
+            margin-top: 30px;
+            padding-top: 25px;
+            border-top: 1px solid #1e293b;
+            display: none;
+            animation: zoomIn 0.5s ease;
+        }
+
+        @keyframes zoomIn { from { opacity: 0; transform: scale(0.95); } to { opacity: 1; transform: scale(1); } }
 
         .years-left {
             font-family: 'Orbitron', sans-serif;
-            font-size: 3.5rem;
-            font-weight: 900;
-            color: white;
-            margin: 10px 0;
+            font-size: 3.2rem;
             text-align: center;
-            background: linear-gradient(to bottom, #fff, #666);
+            margin: 10px 0;
+            background: linear-gradient(to right, #fff, var(--neon-blue));
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
         }
 
-        .advice-box { background: rgba(255,255,255,0.03); padding: 20px; border-radius: 12px; margin-top: 20px; }
-        .advice-box h4 { margin: 0 0 8px 0; font-size: 0.8rem; color: var(--neon-blue); text-transform: uppercase; }
-        .advice-text { color: var(--text-dim); line-height: 1.6; font-size: 0.9rem; }
-
+        .advice-box { background: rgba(255,255,255,0.02); padding: 15px; border-radius: 10px; margin-top: 15px; border: 1px dashed #334155; }
+        .advice-text { color: var(--text-dim); font-size: 0.85rem; line-height: 1.5; }
     </style>
 </head>
 <body>
 
     <div class="header">
         <h1 class="main-title"><span class="humans">Humans</span><span class="vs">vs</span><span class="ai">AI</span></h1>
-        <p style="color: var(--text-dim); margin-top: 10px;">The Ultimate Obsolescence Check</p>
+        <p style="color: #475569; font-size: 0.8rem; letter-spacing: 3px;">DATABASE VERSION 2.0</p>
     </div>
-    
+
     <div class="container">
-        <label>Sector</label>
+        <label>Industry Sector</label>
         <select id="sector" onchange="updateJobs()">
-            <option value="">Choose Industry...</option>
+            <option value="">-- Select Sector --</option>
         </select>
 
-        <label>Profession</label>
+        <label>Specific Profession</label>
         <select id="job" disabled onchange="showButton()">
-            <option value="">Choose Profession...</option>
+            <option value="">-- Select Profession --</option>
         </select>
 
-        <button id="calculate-btn" onclick="revealResult()">Analyze My Future</button>
+        <button id="calculate-btn" onclick="revealResult()">CALCULATE DESTINY</button>
 
         <div id="result-section">
-            <label style="text-align:center; display:block;">Time until full automation:</label>
-            <div class="years-left" id="years-display">? Years</div>
-            
+            <div class="years-left" id="years-display">0 Years</div>
             <div class="advice-box">
-                <h4>Strategic Insight</h4>
                 <div class="advice-text" id="advice-display"></div>
             </div>
         </div>
     </div>
 
     <script>
-        const data = {
-            "Tech & Software": {
-                "Junior Dev": { y: 4, a: "Pure coding is being automated. Shift your focus to system design and AI integration." },
-                "AI Researcher": { y: 25, a: "You are building the future. Your role is safe as long as you keep innovating." },
-                "QA Engineer": { y: 3, a: "Manual testing is dying fast. Transition to automated AI testing tools immediately." }
+        const jobData = {
+            "Software & Tech": {
+                "Junior Developer": [4, "AI will handle syntax. Focus on system architecture."],
+                "Frontend Dev": [6, "Low-code tools are rising. Master complex UX logic."],
+                "Backend Dev": [7, "Focus on cloud infra and security integration."],
+                "Mobile Dev": [8, "Cross-platform AI generation will dominate."],
+                "Data Scientist": [3, "Automated ML is taking over. Pivot to Data Strategy."],
+                "QA Tester": [2, "Manual testing is obsolete. Learn AI-driven QA."],
+                "Cybersecurity": [18, "Human intuition in defense is irreplaceable for now."],
+                "DevOps": [12, "Automation is your friend. Manage the AI agents."],
+                "AI Engineer": [25, "You are the creator. Keep innovating."],
+                "Blockchain Dev": [15, "Complex logic remains safe from current AI models."],
+                "Data Entry": [1, "Total automation imminent. Reskill immediately."],
+                "Scrum Master": [10, "Focus on human team dynamics and blocking."],
+                "Cloud Architect": [14, "Hybrid systems need human high-level design."],
+                "Game Dev": [9, "AI will assist assets. Human creativity is key."],
+                "System Admin": [11, "Routine tasks will go to AI agents."],
+                "Hardware Eng": [20, "Physical circuit design is safe for now."],
+                "Embedded Systems": [16, "Specialized hardware logic is secure."]
             },
             "Healthcare": {
-                "Surgeon": { y: 30, a: "High-stakes physical precision is safe. Master robotic surgical tools to stay elite." },
-                "Nurse": { y: 40, a: "Human empathy and physical care are nearly impossible for AI to replicate fully." }
+                "Radiologist": [5, "AI patterns are superior. Focus on clinical consults."],
+                "Pharmacist": [7, "Robotic dispensing is growing. Focus on patient advice."],
+                "General Doctor": [12, "Diagnosis AI is a tool. Empathy is your edge."],
+                "Surgeon": [28, "High-stakes physical work is very safe."],
+                "Nurse": [35, "Human care and mobility are impossible for AI."],
+                "Dentist": [30, "Complex physical precision remains safe."],
+                "Psychologist": [40, "Deep human emotion is the ultimate safety net."],
+                "Medical Lab Tech": [6, "Lab automation is accelerating fast."],
+                "Physical Therapist": [38, "Movement and touch are uniquely human."],
+                "Nutritionist": [10, "Personalized AI diets will challenge this role."],
+                "Optometrist": [12, "Routine checks will be fully automated."],
+                "Veterinarian": [25, "Animal behavior needs human intuition."],
+                "Dermatologist": [8, "Skin pattern recognition AI is very strong."],
+                "Anesthesiologist": [15, "Precision monitoring is moving to AI."],
+                "Paramedic": [32, "Chaos of emergency scenes needs humans."],
+                "Caregiver": [45, "Social-physical bond is safe for decades."],
+                "Medical Researcher": [20, "AI speeds up data; humans design the study."]
             },
-            "Creative Arts": {
-                "Writer": { y: 2, a: "Generic writing is dead. Focus on deep investigative journalism or high-concept storytelling." },
-                "UI/UX Designer": { y: 8, a: "AI will generate layouts. Your job is to focus on human psychology and user empathy." }
+            "Creative & Media": {
+                "Graphic Designer": [4, "AI generates images. You must provide the Vision."],
+                "Copywriter": [2, "Short-form text is dead. Write deep, unique stories."],
+                "Illustrator": [3, "Pure digital art is saturated. Move to physical/VR."],
+                "Video Editor": [5, "AI cuts clips. You must build the emotion."],
+                "Animator": [7, "Motion capture and AI will handle the frame work."],
+                "Photographer": [12, "Real-world moments can't be purely generated."],
+                "Architect": [15, "AI draws plans; humans define living spaces."],
+                "Interior Designer": [10, "Taste is subjective. Leverage AI for renders."],
+                "UX Researcher": [12, "Human feedback and psychology are vital."],
+                "Fashion Designer": [14, "Style is human. Production is automated."],
+                "Music Producer": [8, "AI creates beats. You create the soul."],
+                "Journalist": [6, "Breaking news is AI. Investigative is human."],
+                "VFX Artist": [5, "AI tools are drastically reducing work hours."],
+                "3D Modeler": [4, "Procedural AI is taking over geometry."],
+                "Art Director": [18, "Conceptual leadership is safe."],
+                "Social Media Mgr": [5, "AI schedules and writes. You strategy."],
+                "Translator": [2, "Neural translation is nearing perfection."]
             },
-            "Business": {
-                "Manager": { y: 15, a: "AI manages tasks; humans manage people. Focus on leadership and emotional intelligence." },
-                "Accountant": { y: 5, a: "Routine math is over. Pivot to strategic financial advisory and wealth management." }
+            "Finance & Legal": {
+                "Accountant": [4, "Bookkeeping is over. Become a strategy consultant."],
+                "Financial Analyst": [3, "Algorithmic trading is faster than humans."],
+                "Tax Preparer": [2, "Software handles 99% of tax logic now."],
+                "Lawyer": [10, "Research is AI. Negotiation and court is human."],
+                "Legal Secretary": [3, "Document drafting is being fully automated."],
+                "Bank Teller": [2, "Digital banking and AI kiosks are replacing you."],
+                "Insurance Agent": [5, "Underwriting AI is more accurate than humans."],
+                "Audit Officer": [6, "Anomaly detection AI is extremely efficient."],
+                "Stock Broker": [4, "Humans can't beat AI speed in the market."],
+                "Economist": [12, "Data is AI. Interpretation is still human."],
+                "Judge": [40, "Ethical finality must remain human."],
+                "Notary": [3, "Digital verification is the future."],
+                "Compliance Officer": [8, "Regulations are complex for AI alone."],
+                "Investment Banker": [11, "Relationship-based finance is secure."],
+                "Loan Officer": [4, "Scoring algorithms are taking over."],
+                "Claims Adjuster": [5, "Photo-analysis AI determines damage now."],
+                "Mortgage Broker": [6, "Process is moving to full automation."]
+            },
+            "Education": {
+                "Primary Teacher": [25, "Child development needs human presence."],
+                "University Prof": [12, "Knowledge is free. Focus on mentorship."],
+                "Language Tutor": [4, "AI conversation partners are becoming perfect."],
+                "Librarian": [5, "Physical archiving is a shrinking field."],
+                "Corporate Trainer": [8, "LMS with AI is replacing standard seminars."],
+                "Research Assistant": [4, "AI handles literature reviews in seconds."],
+                "Special Ed Teacher": [40, "Deep empathy is irreplaceable."],
+                "School Principal": [20, "Management and social friction need humans."],
+                "Career Counselor": [10, "AI will match skills to jobs perfectly."],
+                "Math Teacher": [6, "Step-by-step AI solvers are everywhere."],
+                "History Teacher": [8, "Focus on critical thinking, not dates."],
+                "Coach": [30, "Motivation and physical form need a person."],
+                "Instructional Designer": [7, "AI generates course content instantly."],
+                "Driving Instructor": [2, "Self-driving cars make this obsolete."],
+                "Flight Instructor": [15, "High-stakes training remains human-led."],
+                "Yoga Instructor": [35, "Physical correction and energy are human."],
+                "Music Teacher": [20, "Subtle technique needs human ears."]
+            },
+            "Manual & Trade": {
+                "Plumber": [50, "Unpredictable physical spaces are AI-proof."],
+                "Electrician": [48, "Complex troubleshooting is very safe."],
+                "Carpenter": [40, "Custom hand-work is highly valued."],
+                "Chef": [25, "Robots can cook, but can't 'taste' art."],
+                "Auto Mechanic": [22, "EVs need specialized human diagnostics."],
+                "Construction": [30, "Robotics for construction are slow to adapt."],
+                "Welder": [18, "Precision robots exist, but sites are chaotic."],
+                "Landscaper": [25, "Creative outdoor work is safe."],
+                "Barber": [45, "Human scalp contact and style are personal."],
+                "Mason": [20, "Robotic bricklayers exist but are limited."],
+                "Roofer": [35, "Dangerous, variable work is hard for robots."],
+                "Locksmith": [40, "Mobile emergency work is human-led."],
+                "Tailor": [28, "Custom fitting is uniquely human."],
+                "Painter": [15, "Spray robots exist for large flat areas."],
+                "Janitor": [15, "General cleaning robots are improving fast."],
+                "Fisherman": [30, "High-sea chaos remains human domain."],
+                "Farmer": [12, "Agri-tech is automating the fields fast."]
+            },
+            "Sales & Marketing": {
+                "Sales Rep": [15, "B2B relationships are built on human trust."],
+                "Real Estate Agent": [10, "Virtual tours and AI pricing will cut the need."],
+                "Marketing Mgr": [12, "Strategy and brand soul need humans."],
+                "SEO Specialist": [4, "AI search changes the game completely."],
+                "PR Specialist": [15, "Crisis management needs human nuance."],
+                "Event Planner": [12, "Chaos of live events needs a human lead."],
+                "Brand Manager": [18, "Abstract values are human-driven."],
+                "Telemarketer": [1, "AI voices are already taking over."],
+                "Retail Sales": [3, "Self-checkout and kiosks are winning."],
+                "Copywriter": [2, "Ad-copy is already being written by AI."],
+                "Media Buyer": [4, "Algorithms buy ads better than humans."],
+                "Fundraiser": [14, "Personal connection is vital for donors."],
+                "Market Researcher": [5, "Data mining is now fully AI."],
+                "Art Dealer": [25, "Subjective value needs human trust."],
+                "Travel Agent": [3, "AI trip planners are nearing perfection."],
+                "Promoter": [10, "Energy and social hype are human."],
+                "Recruiter": [8, "Matching is AI. Vetting culture is human."]
+            },
+            "Management": {
+                "CEO": [40, "Ultimate accountability must be human."],
+                "Project Manager": [12, "AI tracks tasks. You manage people."],
+                "HR Manager": [15, "Human conflict needs human resolution."],
+                "Product Manager": [14, "Vision and 'The Why' is a human trait."],
+                "Operations Mgr": [10, "Supply chain AI is getting very strong."],
+                "Hotel Manager": [18, "Hospitality is a human-centric field."],
+                "Team Lead": [16, "Daily motivation and empathy."],
+                "Strategy Consultant": [12, "AI gives data; you give the direction."],
+                "Logistics Mgr": [7, "Optimization is an AI strength."],
+                "Public Admin": [20, "Political nuance is safe from AI."],
+                "Non-Profit Dir": [25, "Mission-driven work is human-led."],
+                "Retail Manager": [10, "Operational tasks are moving to AI."],
+                "Kitchen Manager": [15, "Managing chaos and people."],
+                "Office Manager": [5, "AI agents handle scheduling/supplies."],
+                "Security Manager": [20, "Physical risk management."],
+                "Warehouse Mgr": [4, "Robotic warehouses are the norm now."],
+                "Facilities Mgr": [12, "Building maintenance tech."]
             }
-            // Add more sectors here...
         };
 
         const sectorSelect = document.getElementById('sector');
@@ -175,15 +288,16 @@
         const btn = document.getElementById('calculate-btn');
         const resultSection = document.getElementById('result-section');
 
-        // Populate
-        for (let s in data) { sectorSelect.add(new Option(s, s)); }
+        // Initial Load
+        for (let s in jobData) { sectorSelect.add(new Option(s, s)); }
 
         function updateJobs() {
-            jobSelect.innerHTML = '<option value="">Choose Profession...</option>';
-            if (sectorSelect.value) {
+            jobSelect.innerHTML = '<option value="">-- Select Profession --</option>';
+            const selectedSector = sectorSelect.value;
+            if (selectedSector) {
                 jobSelect.disabled = false;
-                for (let j in data[sectorSelect.value]) { jobSelect.add(new Option(j, j)); }
-            }
+                for (let j in jobData[selectedSector]) { jobSelect.add(new Option(j, j)); }
+            } else { jobSelect.disabled = true; }
             btn.style.display = 'none';
             resultSection.style.display = 'none';
         }
@@ -197,12 +311,12 @@
         function revealResult() {
             const s = sectorSelect.value;
             const j = jobSelect.value;
-            document.getElementById('years-display').innerText = data[s][j].y + " Years";
-            document.getElementById('advice-display').innerText = data[s][j].a;
+            const res = jobData[s][j];
+            document.getElementById('years-display').innerText = res[0] + " Years";
+            document.getElementById('advice-display').innerText = res[1];
             resultSection.style.display = 'block';
-            btn.style.display = 'none'; // Optional: hide button after result
+            btn.style.display = 'none';
         }
     </script>
 </body>
 </html>
-  
