@@ -1,9 +1,9 @@
-<!DOCTYPE ht<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Humans vs AI | Global Future Index 2.0</title>
+    <title>Humans vs AI | Global Future Index</title>
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
     <style>
         :root {
@@ -12,7 +12,6 @@
             --neon-blue: #00d2ff;
             --neon-pink: #ff007f;
             --accent: #6e00ff;
-            --warning: #ff3e3e;
             --text-main: #ffffff;
             --text-dim: #8b949e;
         }
@@ -26,13 +25,12 @@
             display: flex;
             flex-direction: column;
             align-items: center;
+            justify-content: center;
             padding: 20px;
             margin: 0;
             min-height: 100vh;
-            justify-content: center;
         }
 
-        /* Header Responsive */
         .header { text-align: center; margin-bottom: 30px; width: 100%; }
         .main-title { 
             font-family: 'Orbitron', sans-serif; 
@@ -52,7 +50,6 @@
             text-transform: uppercase;
         }
 
-        /* Container Responsive */
         .container {
             width: 100%;
             max-width: 550px;
@@ -83,8 +80,7 @@
             font-size: 1rem;
             outline: none;
             cursor: pointer;
-            transition: border 0.3s;
-            -webkit-appearance: none; /* Mobile fix */
+            transition: 0.3s;
         }
         select:focus { border-color: var(--neon-blue); }
 
@@ -97,16 +93,12 @@
             color: white;
             font-family: 'Orbitron', sans-serif;
             font-weight: 700;
-            font-size: 0.9rem;
             cursor: pointer;
             letter-spacing: 2px;
             display: none;
-            transition: 0.3s;
             text-transform: uppercase;
         }
-        #calculate-btn:hover { transform: scale(1.02); filter: brightness(1.2); }
 
-        /* Result Section */
         #result-section {
             margin-top: 35px;
             padding-top: 30px;
@@ -136,20 +128,14 @@
             text-transform: uppercase;
             font-size: 0.75rem;
             margin-bottom: 20px;
-            animation: pulse 1.5s infinite;
         }
 
-        @keyframes pulse { 0% { opacity: 1; } 50% { opacity: 0.7; } 100% { opacity: 1; } }
-
         .advice-box { background: rgba(255,255,255,0.03); padding: 20px; border-radius: 14px; margin-top: 20px; }
-        .advice-box h4 { margin: 0 0 10px 0; font-size: 0.8rem; color: var(--neon-blue); text-transform: uppercase; letter-spacing: 1px; }
+        .advice-box h4 { margin: 0 0 10px 0; font-size: 0.8rem; color: var(--neon-blue); text-transform: uppercase; }
         .advice-text { color: var(--text-dim); line-height: 1.6; font-size: 0.95rem; }
 
-        /* Mobile specific adjustments */
         @media (max-width: 480px) {
-            body { padding: 15px; }
             .container { padding: 25px 20px; }
-            .main-title { letter-spacing: 2px; }
         }
     </style>
 </head>
@@ -186,15 +172,15 @@
     </div>
 
     <script>
+        // Data and Advices
         const sectorAdvices = {
-            "Technology": "Code generation is peak AI. Move into AI Orchestration and complex System Architecture.",
-            "Finance": "Basic logic is now automated. Pivot to high-stakes Strategic Consulting and wealth empathy.",
-            "Creative Arts": "Generative models win on speed. You must win on Soul, Concept, and human-led Creative Direction.",
-            "Legal": "Research and drafting are dead. Focus on Courtroom Persuasion and intricate Human Negotiation.",
-            "Admin & Support": "Routine operations are over. Reskill into AI Management and Operational Strategy immediately.",
-            "Media": "Content is a commodity. Focus on Investigative Journalism and unique Personal Branding.",
-            "Sales": "Basic Lead Gen is automated. Build deep Enterprise-level Human Relationships.",
-            "Logistics": "Pathfinding and sorting are AI-led. Focus on Global Supply Chain Resilience and Crisis Ops."
+            "Technology": "AI is writing code faster than you. Shift to AI Supervision and System Architecture.",
+            "Finance": "Algorithmic processing is absolute. Pivot to Human-Centric Strategic Advising.",
+            "Creative Arts": "Generative AI is a tool, not a rival. Focus on High-Concept Creative Direction.",
+            "Legal": "Document research is AI territory. Focus on Courtroom Strategy and Human Negotiation.",
+            "Media": "Information is automated. Focus on Investigative Journalism and Personal Branding.",
+            "Sales": "Basic lead gen is AI. Focus on Enterprise Relationship Building.",
+            "Logistics": "Pathfinding is automated. Focus on Global Supply Chain Resilience."
         };
 
         const rawData = {
@@ -205,6 +191,80 @@
             "Legal": ["Lawyer", "Paralegal", "Legal Secretary", "Notary", "Judge", "Court Reporter", "Mediator", "Bailiff", "Compliance Eng", "Patent Agent", "Legal Researcher", "Contract Specialist", "Process Server", "Corporate Counsel", "Litigation Support", "Public Defender", "Prosecutor", "Law Clerk", "Arbitrator", "Criminologist", "Policy Analyst", "Legal Analyst", "Investigator", "Title Searcher", "Expert Witness"],
             "Education": ["Primary Teacher", "Uni Professor", "Librarian", "Language Tutor", "Corporate Trainer", "Career Counselor", "Math Tutor", "School Principal", "Dean", "Education Admin", "Special Ed Teacher", "Coach", "Physical Trainer", "Research Assistant", "Online Instructor", "Music Teacher", "Art Teacher", "Textbook Writer", "Academic Advisor", "Curriculum Designer", "Translator", "Interpreter", "Preschool Teacher", "Lab Assistant", "Study Guide Writer"],
             "Manual & Trade": ["Plumber", "Electrician", "Carpenter", "Chef", "Baker", "Butcher", "Mechanic", "Welder", "Painter", "Mason", "Locksmith", "Barber", "Tailor", "Janitor", "Gardener", "Construction Worker", "Roofer", "HVAC Tech", "Fisherman", "Farmer", "Blacksmith", "Jeweler", "Goldsmith", "Shoemaker", "Watchmaker"],
+            "Sales & Marketing": ["Sales Rep", "PR Agent", "Marketing Mgr", "SEO Specialist", "Event Planner", "Brand Mgr", "Telemarketer", "Retail Clerk", "Real Estate Agent", "Buyer", "Media Planner", "Fundraiser", "Art Dealer", "Travel Agent", "Recruiter", "Customer Success", "Key Account Mgr", "Promoter", "Market Researcher", "E-commerce Mgr", "Ad Copywriter", "Traffic Mgr", "Sales Director", "Merchant", "Auctioneer"],
+            "Logistics & Transport": ["Truck Driver", "Pilot", "Delivery Driver", "Warehouse Worker", "Ship Captain", "Air Traffic Controller", "Logistician", "Taxi Driver", "Courier", "Flight Attendant", "Train Driver", "Dispatcher", "Fleet Manager", "Supply Chain Analyst", "Inventory Clerk", "Harbor Master", "Bus Driver", "Dock Worker", "Freight Forwarder", "Mover", "Postal Worker", "Crane Operator", "Locomotive Eng", "Traffic Warden", "Packaging Clerk"],
+            "Media & Entertainment": ["News Anchor", "Radio DJ", "Actor", "Stunt Performer", "Cameraman", "Sound Tech", "Producer", "Director", "Scriptwriter", "Makeup Artist", "Set Designer", "Talent Agent", "PR Manager", "Podcaster", "Blogger", "Influencer", "Talk Show Host", "Screenwriter", "Subtitle Writer", "News Editor", "Paparazzi", "Critic", "Lyricist", "Stage Mgr", "Booking Agent"],
+            "Management": ["CEO", "Project Mgr", "HR Manager", "Product Mgr", "Operations Mgr", "Hotel Mgr", "Store Mgr", "Dept Head", "Office Mgr", "Facilities Mgr", "Team Lead", "Consultant", "Chief of Staff", "General Manager", "Non-Profit Dir", "Chairman", "Supply Chain Dir", "Regional Mgr", "Strategic Planner", "Risk Officer", "Training Mgr", "Logistics Mgr", "Security Dir", "IT Director", "QA Manager"],
+            "Hospitality": ["Receptionist", "Hotel Clerk", "Concierge", "Waiter", "Bartender", "Tour Guide", "Housekeeper", "Chef de Cuisine", "Sommelier", "Barista", "Valet", "Bellhop", "Catering Mgr", "Travel Consultant", "Resort Mgr", "Cruise Director", "Pastry Chef", "Booking Agent", "Hostess", "Porter", "Dishwasher", "Room Service", "Event Host", "Spa Mgr", "Fitness Trainer"],
+            "Public Service": ["Firefighter", "Police Officer", "Soldier", "Diplomat", "Politician", "Social Worker", "Librarian", "Postal Worker", "Urban Planner", "Customs Officer", "Immigration Agent", "Tax Collector", "Inspector", "Judge", "Sanitation Worker", "Public Servant", "Army Officer", "Intelligence Agent", "Senator", "Mayor", "Governor", "Ambassador", "Civil Clerk", "Councilman", "Border Guard"],
+            "Energy & Science": ["Geologist", "Meteorologist", "Biologist", "Chemist", "Physicist", "Astronomer", "Oil Rig Worker", "Nuclear Tech", "Solar Installer", "Wind Turbine Tech", "Energy Auditor", "Lab Assistant", "Environmentalist", "Geneticist", "Microbiologist", "Electrician", "Petroleum Eng", "Miner", "Forester", "Hydrologist", "Marine Biologist", "Archaeologist", "Historian", "Sociologist", "Statistician"],
+            "Construction": ["Foreman", "Electrician", "Bricklayer", "Crane Operator", "Architect", "Civil Engineer", "Surveyor", "Heavy Machine Op", "Painter", "Plasterer", "Insulation Tech", "Roofer", "Glazier", "Carpenter", "Ironworker", "Safety Officer", "Site Mgr", "Concrete Finisher", "Estimator", "Scheduler", "Project Eng", "Drafter", "Tile Setter", "Floor Layer", "Demolition Expert"],
+            "Science & Space": ["Astronaut", "Aerospace Eng", "Astrophysicist", "Space Tech", "Satellite Tech", "Mission Controller", "Planetologist", "Exobiologist", "Cosmologist", "Rocket Scientist", "Aero Engineer", "Pilot", "Data Analyst", "Systems Eng", "Researcher", "Physicist", "Engineer", "Technician", "Inspector", "Observer", "Explorer", "Geographer", "Cartographer", "Draftsman", "Mathematician"],
+            "Manufacturing": ["Assembler", "Factory Worker", "Quality Control", "Machinist", "CNC Operator", "Welder", "Forklift Driver", "Plant Manager", "Maintenance Tech", "Production Sup", "Inventory Mgr", "Packaging Tech", "Logistics Clerk", "Safety Inspector", "Mechanic", "Electrician", "Foreman", "Tool Maker", "Millwright", "Operator", "Technician", "Cleaner", "Supervisor", "Designer", "Engineer"],
+            "Agriculture": ["Farmer", "Agronomist", "Tractor Driver", "Harvester", "Beekeeper", "Fisherman", "Rancher", "Gardener", "Vineyard Mgr", "Soil Scientist", "Vet", "Farm Laborer", "Greenhouse Worker", "Nursery Mgr", "Inspector", "Buyer", "Breeder", "Technician", "Forester", "Log Driver", "Irrigation Tech", "Animal Breeder", "Estate Mgr", "Horticulturist", "Equestrian"],
+            "Customer Support": ["Support Agent", "Help Desk", "Call Center Op", "Receptionist", "Service Rep", "Success Manager", "Complaint Officer", "Advisor", "Coordinator", "Specialist", "Moderator", "Consultant", "Front Desk", "Information Clerk", "Operator", "Assistant", "Virtual Asst", "Chat Support", "Technical Support", "Admin Assistant", "Secretary", "Host", "Concierge", "Guide", "Teller"],
+            "Arts & Crafts": ["Painter", "Sculptor", "Potter", "Weaver", "Jeweler", "Blacksmith", "Woodworker", "Glassblower", "Tailor", "Knitter", "Engraver", "Goldsmith", "Silversmith", "Bookbinder", "Restorer", "Calligrapher", "Printmaker", "Taxidermist", "Florist", "Luthier", "Cobbler", "Model Maker", "Puppeteer", "Toy Maker", "Graphic Artist"],
+            "Aviation": ["Commercial Pilot", "Flight Attendant", "Air Traffic Controller", "Aircraft Mechanic", "Avionics Tech", "Ground Crew", "Baggage Handler", "Flight Instructor", "Drone Pilot", "Heli Pilot", "Safety Inspector", "Loadmaster", "Air Marshal", "Terminal Mgr", "Gate Agent", "Aero Engineer", "Flight Dispatcher", "Logistics Planner", "Security Screener", "Catering Crew", "Meteorologist", "Fueler", "Customs Agent", "Navigation Expert", "Incident Analyst"]
+        };
+
+        const sectorSelect = document.getElementById('sector');
+        const jobSelect = document.getElementById('job');
+        const btn = document.getElementById('calculate-btn');
+        const resultSection = document.getElementById('result-section');
+
+        // Initial Sector Load
+        for (let s in rawData) { sectorSelect.add(new Option(s, s)); }
+
+        function updateJobs() {
+            jobSelect.innerHTML = '<option value="">-- Choose Profession --</option>';
+            const s = sectorSelect.value;
+            if (s) {
+                jobSelect.disabled = false;
+                rawData[s].forEach(j => jobSelect.add(new Option(j, j)));
+            } else { jobSelect.disabled = true; }
+            btn.style.display = 'none';
+            resultSection.style.display = 'none';
+        }
+
+        function showButton() {
+            if (jobSelect.value) btn.style.display = 'block';
+            else btn.style.display = 'none';
+            resultSection.style.display = 'none';
+        }
+
+        function revealResult() {
+            const s = sectorSelect.value;
+            const j = jobSelect.value;
+            let years;
+            
+            // Logic based on sector risk
+            const highRisk = ["Technology", "Finance", "Creative Arts", "Legal", "Media", "Customer Support", "Sales & Marketing"];
+            if (highRisk.includes(s)) years = Math.floor(Math.random() * 6) + 1;
+            else years = Math.floor(Math.random() * 30) + 10;
+
+            const display = document.getElementById('years-display');
+            const dangerBanner = document.getElementById('danger-banner');
+            const advice = document.getElementById('advice-display');
+
+            display.innerText = years + " Years";
+            
+            if (years < 5) {
+                display.style.color = "var(--neon-pink)";
+                dangerBanner.innerHTML = `<div class="danger-alert">⚠️ HIGH RISK DETECTED</div>`;
+                advice.innerText = sectorAdvices[s] || "This role is facing rapid automation. Focus on high-level decision making and emotional intelligence.";
+            } else {
+                display.style.color = "var(--neon-blue)";
+                dangerBanner.innerHTML = "";
+                advice.innerText = "Stable for now. Keep integrating AI tools to stay competitive in the long term.";
+            }
+
+            resultSection.style.display = 'block';
+            btn.style.display = 'none';
+        }
+    </script>
+</body>
+</html>
+Carpenter", "Chef", "Baker", "Butcher", "Mechanic", "Welder", "Painter", "Mason", "Locksmith", "Barber", "Tailor", "Janitor", "Gardener", "Construction Worker", "Roofer", "HVAC Tech", "Fisherman", "Farmer", "Blacksmith", "Jeweler", "Goldsmith", "Shoemaker", "Watchmaker"],
             "Sales & Marketing": ["Sales Rep", "PR Agent", "Marketing Mgr", "SEO Specialist", "Event Planner", "Brand Mgr", "Telemarketer", "Retail Clerk", "Real Estate Agent", "Buyer", "Media Planner", "Fundraiser", "Art Dealer", "Travel Agent", "Recruiter", "Customer Success", "Key Account Mgr", "Promoter", "Market Researcher", "E-commerce Mgr", "Ad Copywriter", "Traffic Mgr", "Sales Director", "Merchant", "Auctioneer"],
             "Logistics & Transport": ["Truck Driver", "Pilot", "Delivery Driver", "Warehouse Worker", "Ship Captain", "Air Traffic Controller", "Logistician", "Taxi Driver", "Courier", "Flight Attendant", "Train Driver", "Dispatcher", "Fleet Manager", "Supply Chain Analyst", "Inventory Clerk", "Harbor Master", "Bus Driver", "Dock Worker", "Freight Forwarder", "Mover", "Postal Worker", "Crane Operator", "Locomotive Eng", "Traffic Warden", "Packaging Clerk"],
             "Media & Entertainment": ["News Anchor", "Radio DJ", "Actor", "Stunt Performer", "Cameraman", "Sound Tech", "Producer", "Director", "Scriptwriter", "Makeup Artist", "Set Designer", "Talent Agent", "PR Manager", "Podcaster", "Blogger", "Influencer", "Talk Show Host", "Screenwriter", "Subtitle Writer", "News Editor", "Paparazzi", "Critic", "Lyricist", "Stage Mgr", "Booking Agent"],
